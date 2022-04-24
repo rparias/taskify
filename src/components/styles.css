@@ -71,3 +71,23 @@
 .todos__single--text:focus {
   outline: none;
 }
+
+.icon {
+  margin-left: 10px;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  .input {
+    width: 95%;
+  }
+
+  .todos {
+    width: 95%;
+  }
+
+  .todos__single {
+    width: 100%;
+  }
+}
