@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Todo } from '../model'
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
 import { MdDone } from 'react-icons/md'
@@ -14,6 +14,12 @@ const SingleTodo: React.FC<Props> = ({ todo, todos, setTodos }) => {
 
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const [editTodo, setEditTodo] = useState<string>(todo.todo)
+
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [isEditing])
 
   const handleDone = (id: number) => {
     setTodos(todos.map((todo) => todo.id === id ? {...todo, isDone: !todo.isDone} : todo))
@@ -46,7 +52,7 @@ const SingleTodo: React.FC<Props> = ({ todo, todos, setTodos }) => {
   return (
     <form className="todos__single" onSubmit={(e) => handleEditSubmit(e, todo.id)}>
       {isEditing ? (
-        <input value={editTodo} onChange={handleOnChangeInput} className="todos__single--text"/>
+        <input ref={inputRef} value={editTodo} onChange={handleOnChangeInput} className="todos__single--text"/>
       ) : (
         todo.isDone ? (
           <s className="todos__single--text">{todo.todo}</s>
